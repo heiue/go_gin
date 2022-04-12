@@ -1,0 +1,29 @@
+version: "3"
+
+networks:
+  backend:
+    driver: bridge
+
+services:
+  # server服务
+  go:
+    build:
+      context: ./
+      # 指定dockerfile启动容器
+      dockerfile: ./Dockerfile
+    # 自定义容器名
+    container_name: go-gin
+    # 容器启动失败是否重启
+#    restart: always
+    # 映射端口
+    ports:
+      - '8887:8887'
+    volumes:
+      - /Users/weiyizheng/program/go/go_gin:/go/go-gin
+    # server服务依赖于mysql服务于redis服务
+#    depends_on:
+#      - mysql
+#      - redis
+    networks:
+      - backend
+    tty: true
